@@ -30,18 +30,27 @@
 <body>
 <?php
     function appendLine($fileName,$stringInserted,$lineNum){
-        $fp = fopen($fileName, "a+") or die("Unable to open file!");
-        $counter = 0;
-        while (!feof($fp)) {
-            $counter++;
-            $line = fgets($fp);
-            if ($counter == $lineNum){
-                fwrite($fp, $stringInserted);
-                return $line.$stringInserted." (this is append in line 2)";
-            }
+        if(file_exists($fileName)){
+            $file = fopen($fileName,'a');
+            $line = file($fileName,FILE_IGNORE_NEW_LINES);
+            array_splice($line,$lineNum-1,0,$stringInserted);
+            file_put_contents($fileName,join("\n",$line));
+            fclose($file);
         }
     }
-    echo appendLine("number2.text"," Passerelles Numeriques Philippines Scholar",2); 
+
+    function readTextFiles($fileName){
+        if(file_exists($fileName)){
+            $file = fopen($fileName,'r');
+            $contents = fread($file, filesize($fileName));
+            echo "<center><pre><h1>$contents</h1></pre></center>";
+            echo $contents[4]; 
+            fclose($file);
+       }
+    }
+    readTextFiles("number2.text");
+    appendLine("number2.text","Passerelles Numeriques Philippines Scholar",4); 
+    
 ?>
 </body>
 </html>
