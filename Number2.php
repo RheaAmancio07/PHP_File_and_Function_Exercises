@@ -37,11 +37,11 @@
             $line = fgets($fp);
             if ($counter == $lineNum){
                 fwrite($fp, $stringInserted);
-                return $line.$stringInserted."this is append in line 2";
+                return $line.$stringInserted." (this is append in line 2)";
             }
         }
     }
-    echo appendLine("number2.text"," Passerelles Numeriques",2); 
+    echo appendLine("number2.text"," Passerelles Numeriques Philippines Scholar",2); 
 ?>
 </body>
 </html>
